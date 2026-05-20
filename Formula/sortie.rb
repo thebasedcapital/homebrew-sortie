@@ -8,7 +8,7 @@ class Sortie < Formula
   sha256 "4e127dcc04c801d1b1127c2aa59a12bc6637027b508560448028300efa3026c8"
   license "MIT"
 
-  depends_on "node"
+  depends_on "node@22"
 
   def install
     source = buildpath/"package"
@@ -20,12 +20,30 @@ class Sortie < Formula
     libexec.install source/"tools" if File.directory?(source/"tools")
     libexec.install source/"package.json"
 
-    bin.install_symlink libexec/"bin/sortie.mjs" => "sortie"
-    bin.install_symlink libexec/"bin/sortie-mcp.mjs" => "sortie-mcp"
+    node_path = Formula["node@22"].opt_bin
+
+    (bin/"sortie").write <<~EOS
+      #!/bin/bash
+      export PATH="#{node_path}:$PATH"
+      exec "#{libexec}/bin/sortie.mjs" "$@"
+    EOS
+    (bin/"sortie-mcp").write <<~EOS
+      #!/bin/bash
+      export PATH="#{node_path}:$PATH"
+      exec "#{libexec}/bin/sortie-mcp.mjs" "$@"
+    EOS
 
     # Compatibility aliases for existing installs and scripts during the rename.
-    bin.install_symlink libexec/"bin/happy.mjs" => "happy"
-    bin.install_symlink libexec/"bin/happy-mcp.mjs" => "happy-mcp"
+    (bin/"happy").write <<~EOS
+      #!/bin/bash
+      export PATH="#{node_path}:$PATH"
+      exec "#{libexec}/bin/happy.mjs" "$@"
+    EOS
+    (bin/"happy-mcp").write <<~EOS
+      #!/bin/bash
+      export PATH="#{node_path}:$PATH"
+      exec "#{libexec}/bin/happy-mcp.mjs" "$@"
+    EOS
   end
 
   test do
