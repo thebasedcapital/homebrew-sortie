@@ -21,6 +21,11 @@ class Sortie < Formula
     libexec.install source/"package.json"
 
     node_path = Formula["node@22"].opt_bin
+    npm = node_path/"npm"
+
+    cd libexec do
+      system npm, "install", "--omit=dev", "--ignore-scripts", "--no-audit", "--no-fund"
+    end
 
     (bin/"sortie").write <<~EOS
       #!/bin/bash
