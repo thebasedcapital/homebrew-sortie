@@ -4,11 +4,11 @@
 class Sortie < Formula
   desc "Mac companion CLI for Sortie"
   homepage "https://github.com/thebasedcapital/homebrew-sortie"
-  url "https://github.com/thebasedcapital/homebrew-sortie/releases/download/v0.14.0-0-r1/sortie-cli-0.14.0-0-r1.tgz"
+  url "https://github.com/thebasedcapital/homebrew-sortie/releases/download/v0.14.0-0-r2/sortie-cli-0.14.0-0-r2.tgz"
   version "0.14.0-0"
-  sha256 "f902202238431ff13f3e9052f05ffcad28a924a31278db191e868ebb1fcd6203"
+  sha256 "4f52be376bcf6ac01fd5d0c8f71e911edde7074dbcbb1a7fbf12f88c01c6534e"
   license "MIT"
-  revision 1
+  revision 2
 
   depends_on "node@22"
 
@@ -28,15 +28,18 @@ class Sortie < Formula
     cd libexec do
       system npm, "install", "--omit=dev", "--ignore-scripts", "--no-audit", "--no-fund"
     end
+    rm_r libexec/"tools/archives"
 
     (bin/"sortie").write <<~EOS
       #!/bin/bash
       export PATH="#{node_path}:$PATH"
+      export HAPPY_SERVER_URL="${HAPPY_SERVER_URL:-https://sortie-server.fly.dev}"
       exec "#{libexec}/bin/sortie.mjs" "$@"
     EOS
     (bin/"sortie-mcp").write <<~EOS
       #!/bin/bash
       export PATH="#{node_path}:$PATH"
+      export HAPPY_SERVER_URL="${HAPPY_SERVER_URL:-https://sortie-server.fly.dev}"
       exec "#{libexec}/bin/sortie-mcp.mjs" "$@"
     EOS
 
@@ -44,11 +47,13 @@ class Sortie < Formula
     (bin/"happy").write <<~EOS
       #!/bin/bash
       export PATH="#{node_path}:$PATH"
+      export HAPPY_SERVER_URL="${HAPPY_SERVER_URL:-https://sortie-server.fly.dev}"
       exec "#{libexec}/bin/happy.mjs" "$@"
     EOS
     (bin/"happy-mcp").write <<~EOS
       #!/bin/bash
       export PATH="#{node_path}:$PATH"
+      export HAPPY_SERVER_URL="${HAPPY_SERVER_URL:-https://sortie-server.fly.dev}"
       exec "#{libexec}/bin/happy-mcp.mjs" "$@"
     EOS
   end
