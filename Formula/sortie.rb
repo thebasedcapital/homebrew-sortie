@@ -4,11 +4,11 @@
 class Sortie < Formula
   desc "Mac companion CLI for Sortie"
   homepage "https://github.com/thebasedcapital/homebrew-sortie"
-  url "https://github.com/thebasedcapital/homebrew-sortie/releases/download/v0.14.0-0-r39/sortie-cli-0.14.0-0-r39.tgz"
+  url "https://github.com/thebasedcapital/homebrew-sortie/releases/download/v0.14.0-0-r40/sortie-cli-0.14.0-0-r40.tgz"
   version "0.14.0-0"
-  sha256 "706f7d9f43b41a77f0d20bedff29cb307c69593316763b45451b329b4f1074c9"
+  sha256 "c64ba6fa5c3c86fed99625426945ac753875bf997b343b22fcb8b46b7bcb7bbc"
   license "MIT"
-  revision 39
+  revision 40
 
   depends_on "node@22"
 
