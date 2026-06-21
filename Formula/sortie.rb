@@ -6,7 +6,7 @@ class Sortie < Formula
   homepage "https://github.com/thebasedcapital/homebrew-sortie"
   url "https://github.com/thebasedcapital/homebrew-sortie/releases/download/v0.14.0-0-r48/sortie-cli-0.14.0-0-r48.tgz"
   version "0.14.0-0"
-  sha256 "bee7b8bbccdd60457701c905130f593fbbbd46139663feee996b8f0367cd66af"
+  sha256 "e5b77b7950f554906da0e30f6224b83c57e0bce78c0eed1de9c8b30e10111922"
   license "MIT"
   revision 48
 
